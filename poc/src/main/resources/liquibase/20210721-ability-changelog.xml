@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="20210721-001" author="mpetrica">
+        <createTable tableName="ABILITY">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CHARACTER_FK" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20210721-006" author="mpetrica">
+        <modifyDataType tableName="ABILITY" columnName="CHARACTER_FK" newDataType="BIGINT" />
+    </changeSet>
+
+    <changeSet id="20210721-004" author="mpetrica">
+        <addForeignKeyConstraint baseTableName="ABILITY" baseColumnNames="CHARACTER_FK" constraintName="characterIdFK"
+                                 referencedTableName="CHARACTER"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+
+
+
+</databaseChangeLog>
