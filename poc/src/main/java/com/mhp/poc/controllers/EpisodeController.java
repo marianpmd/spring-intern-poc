@@ -20,11 +20,6 @@ public class EpisodeController {
 
     private final EpisodeService episodeService;
 
-    @GetMapping("/hello")
-    public ResponseEntity<String> sayHello(){
-        return new ResponseEntity<>("hello : name=Marian", HttpStatus.OK);
-    }
-
     @GetMapping("/{platform}")
     public ResponseEntity<List<EpisodeDTO>> getByPlatform(@PathVariable("platform") String platform){
         List<EpisodeDTO> byPlatform = episodeService.findByPlatform(platform);
