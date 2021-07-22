@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.WARN)
-@Component
+@Mapper(componentModel = "spring")
 public interface EpisodeMapper {
 
     EpisodeDTO entityToDto(EpisodeEntity episodeEntity);

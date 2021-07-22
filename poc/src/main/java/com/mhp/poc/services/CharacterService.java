@@ -24,5 +24,25 @@ public class CharacterService {
     }
 
 
+    /*public CharacterDTO updateCharacter(CharacterDTO characterDTO) {
+        CharacterEntity byId = characterRepository.findById(
+                characterMapper.DtoToEntity(characterDTO)
+                        .getId())
+                        .get();
 
+        byId.setAge(byId.getAge()+1);
+
+        CharacterEntity byName = characterRepository.getOne(1L);
+
+        if (byId.hashCode() == byName.hashCode()){
+            System.out.println("OK");
+        }else {
+            System.out.println("NOT OK");
+        }
+
+        characterRepository.save(byId);
+
+        return characterMapper.entityToDto(byId);
+
+    }*/
 }
