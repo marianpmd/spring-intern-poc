@@ -1,6 +1,7 @@
 package com.mhp.poc.controllers;
 
 import com.mhp.poc.DTOs.CharacterDTO;
+import com.mhp.poc.DTOs.CharacterNameAgeDTO;
 import com.mhp.poc.services.CharacterService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,20 @@ public class CharacterController {
     @GetMapping("/all")
     public ResponseEntity<List<CharacterDTO>> getAllCharacters(){
         return ResponseEntity.ok(characterService.getAllCharacters());
+    }
+
+    @GetMapping("/byName")
+    public ResponseEntity<CharacterDTO> getByName(@RequestParam(value = "name")String name){
+       CharacterDTO character = characterService.getCharacterByName(name);
+
+       return ResponseEntity.ok(character);
+    }
+
+    @GetMapping("/getNameAndAge")
+    public ResponseEntity<List<CharacterNameAgeDTO>> getNameAndAge(){
+        List<CharacterNameAgeDTO> characterNameAge = characterService.getCharacterNameAge();
+
+        return ResponseEntity.ok(characterNameAge);
     }
 
     @PostMapping("/add")

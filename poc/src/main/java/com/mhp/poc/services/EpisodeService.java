@@ -14,4 +14,5 @@ public interface EpisodeService {
 
     EpisodeDTO save(EpisodeDTO episodeDTO);
 
+    List<EpisodeDTO> findAllEpisodes();
 }

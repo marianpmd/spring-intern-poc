@@ -46,4 +46,11 @@ public class EpisodeServiceImpl implements EpisodeService {
         log.debug("SAVED ENTRY : " + episodeDTO);
         return episodeMapper.entityToDto(save);
     }
+
+    @Override
+    public List<EpisodeDTO> findAllEpisodes() {
+        List<EpisodeEntity> all = episodeRepository.findAll();
+
+        return episodeMapper.episodeEntitiesToDto(all);
+    }
 }

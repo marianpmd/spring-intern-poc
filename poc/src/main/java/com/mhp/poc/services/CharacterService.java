@@ -1,6 +1,7 @@
 package com.mhp.poc.services;
 
 import com.mhp.poc.DTOs.CharacterDTO;
+import com.mhp.poc.DTOs.CharacterNameAgeDTO;
 import com.mhp.poc.entities.CharacterEntity;
 import com.mhp.poc.mappers.AbilityMapper;
 import com.mhp.poc.mappers.CharacterMapper;
@@ -53,5 +54,17 @@ public class CharacterService {
     public void deleteCharacter(String name) {
         CharacterEntity characterEntity = characterRepository.findByName(name);
         characterRepository.delete(characterEntity);
+    }
+
+    public CharacterDTO getCharacterByName(String name) {
+        CharacterEntity byName = characterRepository.findByName(name);
+
+        return characterMapper.entityToDto(byName);
+    }
+
+    public List<CharacterNameAgeDTO> getCharacterNameAge() {
+        List<CharacterEntity> byName = characterRepository.findAll();
+
+        return characterMapper.entitiesToNameAge(byName);
     }
 }
