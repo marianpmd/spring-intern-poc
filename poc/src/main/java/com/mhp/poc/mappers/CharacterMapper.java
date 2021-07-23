@@ -6,13 +6,15 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring" , uses = {AbilityMapper.class})
 public interface CharacterMapper {
 
     CharacterDTO entityToDto(CharacterEntity characterEntity);
 
-    CharacterEntity DtoToEntity(CharacterDTO characterDTO);
+    CharacterEntity dtoToEntity(CharacterDTO characterDTO);
 
     List<CharacterDTO> entitiesToDto(List<CharacterEntity> characterEntities);
+
+    List<CharacterEntity> dtosToEntity(List<CharacterDTO> characterDTOS);
 
 }

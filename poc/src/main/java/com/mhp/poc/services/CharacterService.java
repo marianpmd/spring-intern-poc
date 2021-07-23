@@ -2,6 +2,7 @@ package com.mhp.poc.services;
 
 import com.mhp.poc.DTOs.CharacterDTO;
 import com.mhp.poc.entities.CharacterEntity;
+import com.mhp.poc.mappers.AbilityMapper;
 import com.mhp.poc.mappers.CharacterMapper;
 import com.mhp.poc.repositories.CharacterRepository;
 import lombok.AllArgsConstructor;
@@ -15,34 +16,42 @@ public class CharacterService {
 
     private final CharacterRepository characterRepository;
     private final CharacterMapper characterMapper;
+    private final AbilityMapper abilityMapper;
 
 
     public List<CharacterDTO> getAllCharacters(){
         List<CharacterEntity> all = characterRepository.findAll();
-
         return characterMapper.entitiesToDto(all);
     }
 
+    public CharacterDTO updateCharacter(CharacterDTO characterDTO) {
+        CharacterEntity characterEntity = characterMapper.dtoToEntity(characterDTO);
 
-    /*public CharacterDTO updateCharacter(CharacterDTO characterDTO) {
-        CharacterEntity byId = characterRepository.findById(
-                characterMapper.DtoToEntity(characterDTO)
-                        .getId())
-                        .get();
+        CharacterEntity byName = characterRepository.findByName(characterDTO.getName());
 
-        byId.setAge(byId.getAge()+1);
+        byName.setName(characterDTO.getName());
+        byName.setAge(characterDTO.getAge());
+        byName.setLastName(characterDTO.getLastName());
 
-        CharacterEntity byName = characterRepository.getOne(1L);
+        byName.getAbilities().clear();
 
-        if (byId.hashCode() == byName.hashCode()){
-            System.out.println("OK");
-        }else {
-            System.out.println("NOT OK");
-        }
+        byName.getAbilities().addAll(abilityMapper.dtosToEntity(characterDTO.getAbilities()));
 
-        characterRepository.save(byId);
+        CharacterEntity save = characterRepository.save(byName);
+        return characterMapper.entityToDto(save);
 
-        return characterMapper.entityToDto(byId);
+    }
 
-    }*/
+
+    public CharacterDTO addCharacter(CharacterDTO characterDTO) {
+        CharacterEntity characterEntity = characterMapper.dtoToEntity(characterDTO);
+
+        CharacterEntity save = characterRepository.save(characterEntity);
+        return characterMapper.entityToDto(save);
+    }
+
+    public void deleteCharacter(String name) {
+        CharacterEntity characterEntity = characterRepository.findByName(name);
+        characterRepository.delete(characterEntity);
+    }
 }

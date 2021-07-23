@@ -20,9 +20,23 @@ public class CharacterController {
         return ResponseEntity.ok(characterService.getAllCharacters());
     }
 
-    @PutMapping("/")
-    public CharacterDTO updateCharacter(@RequestBody CharacterDTO characterDTO){
-        return characterService.updateCharacter(characterDTO);
+    @PostMapping("/add")
+    public ResponseEntity<CharacterDTO> addCharacter(@RequestBody CharacterDTO characterDTO){
+        CharacterDTO character = characterService.addCharacter(characterDTO);
+        return ResponseEntity.ok(character);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<CharacterDTO> updateCharacter(@RequestBody CharacterDTO characterDTO){
+        CharacterDTO character = characterService.updateCharacter(characterDTO);
+        return ResponseEntity.ok(character);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteCharacter(@RequestParam(value = "name") String name){
+        characterService.deleteCharacter(name);
+    }
+
+
 
 }

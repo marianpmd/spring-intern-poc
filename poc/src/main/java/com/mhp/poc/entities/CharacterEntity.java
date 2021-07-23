@@ -1,8 +1,10 @@
 package com.mhp.poc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +21,8 @@ public class CharacterEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToMany(mappedBy = "characterEntity")
-    private List<AbilityEntity> abilities;
+    @OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
+    @JoinColumn(name = "character_fk",  nullable = false)
+    private List<AbilityEntity> abilities = new ArrayList<>();
 
 }
