@@ -51,7 +51,6 @@ public class CharacterController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<Long> deleteCharacter(@RequestParam(value = "id") Long id){
-        System.out.println(id);
         boolean wasDeleted = characterService.deleteCharacter(id);
 
         if (!wasDeleted){
