@@ -19,4 +19,9 @@ public class TriviaService {
         List<TriviaEntity> all = triviaRepository.findAll();
         return triviaMapper.entitiesToDto(all);
     }
+
+    public TriviaDTO addNewDto(TriviaDTO triviaDTO) {
+        TriviaEntity save = triviaRepository.save(triviaMapper.dtoToEntity(triviaDTO));
+        return triviaMapper.entityToDto(save);
+    }
 }

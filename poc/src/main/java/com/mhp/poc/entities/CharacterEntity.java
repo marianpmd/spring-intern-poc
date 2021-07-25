@@ -21,7 +21,7 @@ public class CharacterEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
+    @OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL , orphanRemoval = true )
     @JoinColumn(name = "character_fk",  nullable = false)
     private List<AbilityEntity> abilities = new ArrayList<>();
 

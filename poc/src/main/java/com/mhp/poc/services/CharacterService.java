@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -26,9 +27,9 @@ public class CharacterService {
     }
 
     public CharacterDTO updateCharacter(CharacterDTO characterDTO) {
-        CharacterEntity characterEntity = characterMapper.dtoToEntity(characterDTO);
-
-        CharacterEntity byName = characterRepository.findByName(characterDTO.getName());
+        CharacterEntity byName = characterRepository
+                .findById(characterDTO.getId())
+                .orElseThrow();
 
         byName.setName(characterDTO.getName());
         byName.setAge(characterDTO.getAge());
@@ -51,13 +52,21 @@ public class CharacterService {
         return characterMapper.entityToDto(save);
     }
 
-    public void deleteCharacter(String name) {
-        CharacterEntity characterEntity = characterRepository.findByName(name);
-        characterRepository.delete(characterEntity);
+    public boolean deleteCharacter(Long id) {
+        Optional<CharacterEntity> characterEntity = characterRepository
+                .findById(id);
+
+        if (characterEntity.isPresent()){
+            characterRepository.delete(characterEntity.get());
+            return true;
+        }
+        return false;
     }
 
-    public CharacterDTO getCharacterByName(String name) {
-        CharacterEntity byName = characterRepository.findByName(name);
+    public CharacterDTO getCharacterById(Long id) {
+        CharacterEntity byName = characterRepository
+                .findById(id)
+                .orElseThrow();
 
         return characterMapper.entityToDto(byName);
     }

@@ -4,18 +4,16 @@ import com.mhp.poc.DTOs.EpisodeDTO;
 import com.mhp.poc.services.EpisodeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/episode")
 @AllArgsConstructor
 @Slf4j
+@CrossOrigin
 public class EpisodeController {
 
     private final EpisodeService episodeService;

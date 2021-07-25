@@ -7,15 +7,14 @@ import com.mhp.poc.services.TriviaService;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/trivia")
 @AllArgsConstructor
+@CrossOrigin
 public class TriviaController {
     private final TriviaService triviaService;
 
@@ -24,6 +23,13 @@ public class TriviaController {
     public ResponseEntity<List<TriviaDTO>> getAllTrivia(){
         List<TriviaDTO> all = triviaService.getAll();
         return ResponseEntity.ok(all);
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<TriviaDTO> addNewTrivia(@RequestBody TriviaDTO triviaDTO){
+        TriviaDTO trivia = triviaService.addNewDto(triviaDTO);
+
+        return ResponseEntity.ok(trivia);
     }
 
 }
